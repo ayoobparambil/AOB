@@ -1,0 +1,33 @@
+{
+  "name": "bps.performancetests.aob",
+  "version": "1.0.0",
+  "description": "AOB Forms flow performance test",
+  "repository": {
+    "type": "git",
+    "url": "https://bpcloud-dev@dev.azure.com/bpcloud-dev/BpCloud/_git/Bps.PerformanceTests.AOB"
+  },
+  "author": "Shyamal Raju",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "generate:deploy": "npm run build && node dist/generate-deploy.js",
+    "test:load": "artillery run loadTest.yml",
+    "report:load": "artillery report report.json"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "@playwright/test": "^1.58.2",
+    "artillery": "^2.0.30",
+    "artillery-engine-playwright": "^1.27.0"
+  },
+  "devDependencies": {
+    "@types/chance": "^1.1.7",
+    "@types/node": "^25.5.0",
+    "chance": "^1.1.13",
+    "csv-parse": "^6.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

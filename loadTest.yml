@@ -1,0 +1,67 @@
+config:
+  target: "https://stage.bponline.dev/"
+
+  phases:
+    - duration: 1800       # 30 minutes window
+      arrivalCount: 40     # total users to run. Calculation: totalUserCount / workers = arrivalCount
+      name: "Run 20% user journeys"
+
+  variables:
+    DEBUG: "pw:api,http"
+
+  includeFiles:
+    - "./tenants.csv"
+    - "./deploy.csv"
+
+  payload:
+    path: "./deploy.csv"
+    fields:
+      - "DeployRowNumber"
+      - "TenantRowIndex"
+      - "TenantId"
+      - "APIKey"
+      - "accessCode"
+      - "db4Type"
+      - "reference"
+      - "patientName"
+      - "patientDob"
+      - "patientMobile"
+      - "patientMedicareNo"
+      - "patientMedicareIrn"
+      - "patientAddress"
+      - "locationId"
+      - "locationName"
+      - "locationAddress"
+      - "providerName"
+      - "providerNumber"
+      - "referrerName"
+      - "referrerNumber"
+      - "referrerDate"
+      - "referrerPeriod"
+      - "payeeName"
+      - "payeeNumber"
+      - "payeeAcrf"
+      - "serviceDate"
+      - "serviceItemNo"
+      - "serviceBenefitAssigned"
+      - "serviceDescription"
+      - "agreementDate"
+      - "payloadJson"
+    order: sequence
+    skipHeader: true
+
+  engines:
+    playwright:
+      launchOptions:
+        headless: false
+        slowMo: 0
+      trace: 
+        enabled: true
+
+  processor: "./AOB_forms_workflow.ts"
+
+scenarios:
+  - name: "AOB Forms flow"
+    engine: playwright
+    testFunction: "deployAndCompleteAob"
+    weight: 100

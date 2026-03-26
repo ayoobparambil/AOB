@@ -1,0 +1,8 @@
+playwright-report/
+node_modules/
+test-results/
+dist/
+.env
+*.log
+*.csv
+!*.example.csv
